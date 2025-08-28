@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mini Message Board</title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <% messages.forEach((message, index) => { %>
+    <p>User: <%= message.user %></p>
+    <p>Text: <%= message.text %></p>
+    <p>Date: <%= message.added %></p>
+    <a href="/message/<%= index %>">Open</a>
+    <hr />
+    <% }) %>
+  </body>
+</html>
