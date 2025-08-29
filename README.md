@@ -1,6 +1,6 @@
 # Mini Message Board
 
-A simple message board built with Express and EJS templates as part of The Odin Project.
+A simple message board built with Express, EJS templates and Postgresql as part of The Odin Project.
 
 ## Overview
 
@@ -14,3 +14,5 @@ Users can:
 
 - Express
 - EJS
+- Postgresql
+- pg
