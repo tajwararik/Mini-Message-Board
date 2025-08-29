@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const db = require("./db/queries.js");
 
 const PORT = 8000;
 
@@ -8,26 +9,18 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
-
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Mini Messageboard", messages: messages });
+app.get("/", async (req, res) => {
+  console.log(await db.getMessages());
+  res.render("index", {
+    title: "Mini Messageboard",
+    messages: await db.getMessages(),
+  });
 });
 
-app.get("/message/:id", (req, res) => {
+app.get("/message/:id", async (req, res) => {
+  const messages = await db.getMessages();
   const id = parseInt(req.params.id);
   const message = messages[id];
 
@@ -42,10 +35,10 @@ app.get("/new", (req, res) => {
   res.render("form");
 });
 
-app.post("/new", (req, res) => {
-  const { messageText, messageUser } = req.body;
+app.post("/new", async (req, res) => {
+  const { messageUser, messageText } = req.body;
 
-  messages.push({ text: messageText, user: messageUser, added: new Date() });
+  await db.insertMessage(messageUser, messageText);
 
   res.redirect("/");
 });
