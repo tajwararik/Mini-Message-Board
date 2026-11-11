@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mini Message Board</title>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <h1><%= title %></h1>
-    <% messages.forEach((message, index) => { %>
-    <p>User: <%= message.username %></p>
-    <p>Text: <%= message.text %></p>
+
+    <% if (locals.errors) {%>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error %></li>
+      <% }); %>
+    </ul>
+    <% } %>
+
+    <% if(messages.length === 0) { %>
+    <p>No message available.</p>
+    <% } else { %>
+    <% messages.forEach((message) => { %>
+    <p>Username: <%= message.username %></p>
+    <p>Message: <%= message.message %></p>
     <p>Date: <%= message.added %></p>
-    <a href="/message/<%= index %>">Open</a>
+    <a href="/message/<%= message.id %>">Open</a>
     <hr />
     <% }) %>
+    <% } %>
+
+    <a href="/new">Create new message</a>
   </body>
 </html>

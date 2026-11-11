@@ -1,20 +1,44 @@
-<h1>Send message</h1>
-<form method="POST" action="/new">
-  <label for="name">
-    <input
-      id="name"
-      type="text"
-      name="messageUser"
-      placeholder="Enter your name"
-    />
-  </label>
-  <label for="message">
-    <input
-      id="message"
-      type="text"
-      name="messageText"
-      placeholder="Enter your message"
-    />
-  </label>
-  <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <h1><%= title %></h1>
+
+    <% if (locals.errors) {%>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+    <% } %>
+
+    <form action="/new" method="POST">
+      <label for="username">
+        Username:
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="Enter username"
+        />
+      </label>
+
+      <label for="message"
+        >Message:
+        <input
+          id="message"
+          type="text"
+          name="message"
+          placeholder="Enter message"
+        />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="/">Back</a>
+  </body>
+</html>
