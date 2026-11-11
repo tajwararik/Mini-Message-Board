@@ -4,12 +4,12 @@ require("dotenv").config();
 const SQL = `
 CREATE TABLE IF NOT EXISTS messages (
    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-   userName VARCHAR(255),
-   text VARCHAR(255),
+   username VARCHAR(255),
+   message VARCHAR(255),
    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO messages (userName, text)
+INSERT INTO messages (userName, message)
 VALUES
    ('Amando', 'Hi there!'),
    ('Charles', 'Hello World!');
