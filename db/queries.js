@@ -5,14 +5,14 @@ async function getMessages() {
   return rows;
 }
 
-async function insertMessage(messageUser, messageText) {
-  await pool.query(
-    "INSERT INTO messages (userName, text) VALUES ($1, $2) RETURNING *",
-    [messageUser, messageText]
-  );
+async function createMessage(username, message) {
+  await pool.query("INSERT INTO messages (username, message) VALUES ($1, $2)", [
+    username,
+    message,
+  ]);
 }
 
 module.exports = {
   getMessages,
-  insertMessage,
+  createMessage,
 };
