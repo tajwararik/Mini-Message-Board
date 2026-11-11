@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const { body, validationResult, matchedData } = require("express-validator");
 const db = require("./db/queries.js");
 
 const PORT = process.env.PORT || 8000;
@@ -14,6 +15,22 @@ const assetPath = path.join(__dirname, "public");
 app.use(express.static(assetPath));
 app.use(express.urlencoded({ extended: true }));
 
+const validateUser = [
+  body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("Name can not be empty.")
+    .isAlpha()
+    .withMessage("Name must only contain alphabet letters."),
+  body("message")
+    .trim()
+    .notEmpty()
+    .withMessage("Message can not be empty.")
+    .isLength({ max: 200 })
+    .withMessage("Message cannot exceed 200 characters")
+    .escape(),
+];
+
 app.get("/", async (req, res) => {
   try {
     const messages = await db.getMessages();
@@ -24,18 +41,28 @@ app.get("/", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Something went wrong.");
+    return res.status(500).render("index", {
+      title: "Mini Message Board",
+      error: "Something went wrong.",
+    });
   }
 });
 
 app.get("/new", (req, res) => {
-  res.render("form");
+  res.render("form", { title: "Create new message" });
 });
 
-app.post("/new", async (req, res) => {
-  const { messageUser, messageText } = req.body;
+app.post("/new", validateUser, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).render("form", {
+      title: "Create user",
+      errors: errors.array(),
+    });
+  }
 
-  await db.insertMessage(messageUser, messageText);
+  const { username, message } = matchedData(req);
+  await db.createMessage(username, message);
 
   res.redirect("/");
 });
