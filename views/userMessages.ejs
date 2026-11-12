@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= locals.title %></title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>Message Details</h1>
+    <main>
+      <h1>Message Details</h1>
 
-    <% if (locals.error) {%>
-    <p class="error-msg"><%= error %></p>
-    <% } %>
+      <% if (locals.error) {%>
+      <p class="error-msg"><%= locals.error %></p>
+      <% } %>
 
-    <% if(!locals.error) { %>
-    <p>
-      <strong>Username:</strong>
-      <%= username %>
-    </p>
+      <% if(!locals.error) { %>
+      <p>
+        <strong>Username:</strong>
+        <%= locals.username %>
+      </p>
 
-    <% messages.forEach(message => { %>
-    <ul>
-      <li>
-        Message:
-        <%= message.message %>
-      </li>
-      <li>
-        Date:
-        <%= message.added %>
-      </li>
-    </ul>
-    <% }) %>
-    <% } %>
+      <% locals.messages.forEach(message => { %>
+      <ul>
+        <li>
+          <strong> Message:</strong>
+          <%= message.message %>
+        </li>
+        <li>
+          <strong> Date: </strong>
+          <%= message.added %>
+        </li>
+      </ul>
+      <% }) %>
+      <% } %>
 
-    <a href="/">Back</a>
+      <a href="/">Back</a>
+    </main>
   </body>
 </html>

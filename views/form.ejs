@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= locals.title %></title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
 
   <body>
-    <h1><%= title %></h1>
+    <main>
+      <h1><%= locals.title %></h1>
 
-    <% if (locals.errors) {%>
-    <ul>
-      <% errors.forEach(function(error) { %>
-      <li class="warning-msg"><%= error.msg %></li>
-      <% }); %>
-    </ul>
-    <% } %>
+      <% if (locals.errors) {%>
+      <ul>
+        <% errors.forEach(function(error) { %>
+        <li class="warning-msg"><%= error.msg %></li>
+        <% }); %>
+      </ul>
+      <% } %>
 
-    <form action="/new" method="POST">
-      <label for="username">
-        Username:
-        <input
-          id="username"
-          type="text"
-          name="username"
-          placeholder="Enter username"
-        />
-      </label>
+      <form action="/new" method="POST">
+        <label for="username">
+          Username:
+          <input
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Enter username"
+          />
+        </label>
 
-      <label for="message"
-        >Message:
-        <input
-          id="message"
-          type="text"
-          name="message"
-          placeholder="Enter message"
-        />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+        <label for="message"
+          >Message:
+          <input
+            id="message"
+            type="text"
+            name="message"
+            placeholder="Enter message"
+          />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
 
-    <a href="/">Back</a>
+      <a href="/">Back</a>
+    </main>
   </body>
 </html>

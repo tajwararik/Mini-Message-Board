@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= locals.title %></title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
+    <main>
+      <h1><%= locals.title %></h1>
 
-    <% if (locals.error) {%>
-    <p class="error-msg"><%= error %></p>
-    <% } %>
+      <% if (locals.error) {%>
+      <p class="error-msg"><%= error %></p>
+      <% } %>
 
-    <% if(locals.messages.length === 0 && !locals.error) { %>
-    <p>No message available.</p>
-    <% } else { %>
-    <% messages.forEach((message) => { %>
-    <p>Username: <%= message.username %></p>
-    <p>Message: <%= message.message %></p>
-    <p>Date: <%= message.added %></p>
-    <a href="/message/<%= message.username %>">Open</a>
-    <hr />
-    <% }) %>
-    <% } %>
+      <div class="display-message">
+        <% if(locals.messages.length === 0 && !locals.error) { %>
+        <p>No message available.</p>
+        <% } else { %>
+        <% locals.messages.forEach((message) => { %>
+        <p>
+          <strong>Username:</strong>
+          <%= message.username %>
+        </p>
+        <p>
+          <strong>Message:</strong>
+          <%= message.message %>
+        </p>
+        <p>
+          <strong>Date:</strong>
+          <%= message.added %>
+        </p>
+        <p class="view">
+          All messages of <%= message.username %>
+          <a href="/message/<%= message.username %>">View</a>
+        </p>
+        <hr />
+        <% }) %>
+        <% } %>
+      </div>
 
-    <a href="/new">Create new message</a>
+      <a href="/new">Create new message</a>
+    </main>
   </body>
 </html>
