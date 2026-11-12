@@ -43,7 +43,8 @@ app.get("/", async (req, res) => {
     console.log(error);
     return res.status(500).render("index", {
       title: "Mini Message Board",
-      error: "Something went wrong.",
+      messages: [],
+      error: "Something went wrong. Try again later.",
     });
   }
 });
