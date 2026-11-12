@@ -11,3 +11,8 @@ a {
   font-style: italic;
   color: #f00;
 }
+
+.warning-msg {
+  font-style: italic;
+  color: #ff0;
+}
