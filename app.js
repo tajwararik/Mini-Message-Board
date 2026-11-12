@@ -68,16 +68,27 @@ app.post("/new", validateUser, async (req, res) => {
   res.redirect("/");
 });
 
-app.get("/message/:id", async (req, res) => {
-  const messages = await db.getMessages();
-  const id = parseInt(req.params.id);
-  const message = messages[id];
+app.get("/message/:username", async (req, res) => {
+  const { username } = req.params;
 
-  if (!message) {
-    return res.status(404).send("Message not found");
+  try {
+    const messages = await db.getMessagesByUsername(username);
+
+    res.render("userMessages", {
+      username,
+      title: `${username}' messages`,
+      messages,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).render("userMessages", {
+      username: undefined,
+      title: `${username}' messages`,
+      messages: [],
+      error: "Something went wrong. Try again later.",
+    });
   }
-
-  res.render("message", { title: "Message Details", message });
 });
 
 app.listen(PORT, () => console.log(`Connected on port: ${PORT}`));
