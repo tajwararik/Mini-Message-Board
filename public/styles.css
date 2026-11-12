@@ -6,3 +6,8 @@ body {
 a {
   color: #0f0;
 }
+
+.error-msg {
+  font-style: italic;
+  color: #f00;
+}
