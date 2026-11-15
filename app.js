@@ -76,7 +76,7 @@ app.get("/message/:username", async (req, res) => {
 
     res.render("userMessages", {
       username,
-      title: `${username}' messages`,
+      title: `${username}'s messages`,
       messages,
     });
   } catch (error) {
@@ -94,24 +94,17 @@ app.get("/message/:username", async (req, res) => {
 app.post("/message/:username/delete/:id", async (req, res) => {
   const { username, id } = req.params;
 
-  db.deleteMessage(id, username);
-
   try {
-    const messages = await db.getMessagesByUsername(username);
+    await db.deleteMessage(id, username);
 
-    res.render("userMessages", {
-      username,
-      title: `${username}' messages`,
-      messages,
-    });
+    res.redirect(`/message/${username}`);
   } catch (error) {
     console.log(error);
-
     res.status(500).render("userMessages", {
       username: undefined,
       title: `${username}' messages`,
       messages: [],
-      error: "Something went wrong. Try again later.",
+      error: "Failed to delete message. Try again later.",
     });
   }
 });
