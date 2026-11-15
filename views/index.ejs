@@ -13,9 +13,11 @@
       <p class="error-msg"><%= error %></p>
       <% } %>
 
-      <div class="display-message">
+      <div>
         <% if(locals.messages.length === 0 && !locals.error) { %>
-        <p>No message available.</p>
+        <p style="font-style: italic; margin-left: 16px">
+          No message available.
+        </p>
         <% } else { %>
         <% locals.messages.forEach((message) => { %>
         <p>

@@ -19,6 +19,9 @@
         <%= locals.username %>
       </p>
 
+      <% if(locals.messages.length === 0) { %>
+      <p style="font-style: italic; margin-left: 16px">No message available.</p>
+      <% } else { %>
       <% locals.messages.forEach(message => { %>
       <ul>
         <li>
@@ -48,6 +51,7 @@
       </ul>
       <hr />
       <% }) %>
+      <% } %>
       <% } %>
 
       <a href="/" class="centered">Go Back</a>
