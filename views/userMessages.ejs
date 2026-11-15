@@ -23,16 +23,33 @@
         <li>
           <strong> Message:</strong>
           <%= message.message %>
+
+          <form
+            action="/message/<%= message.username %>/delete/<%= message.id %>"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              onclick="
+                return confirm('Are you sure you want to delete this message?');
+              "
+              class="delete-btn"
+            >
+              Delete
+            </button>
+          </form>
         </li>
         <li>
           <strong> Date: </strong>
           <%= message.added %>
         </li>
       </ul>
+      <hr style="margin-bottom: 32px" />
       <% }) %>
       <% } %>
 
-      <a href="/">Back</a>
+      <a href="/">Go Back</a>
     </main>
   </body>
 </html>
