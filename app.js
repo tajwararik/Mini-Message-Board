@@ -91,4 +91,29 @@ app.get("/message/:username", async (req, res) => {
   }
 });
 
+app.post("/message/:username/delete/:id", async (req, res) => {
+  const { username, id } = req.params;
+
+  db.deleteMessage(id, username);
+
+  try {
+    const messages = await db.getMessagesByUsername(username);
+
+    res.render("userMessages", {
+      username,
+      title: `${username}' messages`,
+      messages,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).render("userMessages", {
+      username: undefined,
+      title: `${username}' messages`,
+      messages: [],
+      error: "Something went wrong. Try again later.",
+    });
+  }
+});
+
 app.listen(PORT, () => console.log(`Connected on port: ${PORT}`));
