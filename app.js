@@ -34,16 +34,18 @@ const validateUser = [
 function formattedDate(messages) {
   return messages.map((message) => ({
     ...message,
-    added: new Date(message.added).toLocaleString(undefined, {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
-    }),
+    added:
+      new Date(message.added).toLocaleString("en-US", {
+        timeZone: "UTC",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true,
+      }) + " UTC",
   }));
 }
 
