@@ -9,7 +9,11 @@ CREATE TABLE IF NOT EXISTS messages (
    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO messages (userName, message)
+ALTER TABLE IF EXISTS messages ALTER COLUMN username SET NOT NULL;
+
+ALTER TABLE IF EXISTS messages ALTER COLUMN message SET NOT NULL;
+
+INSERT INTO messages (username, message)
 VALUES
    ('Amando', 'Hi there!'),
    ('Charles', 'Hello World!');
