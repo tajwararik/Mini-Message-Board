@@ -34,7 +34,7 @@ const validateUser = [
 function formattedDate(messages) {
   return messages.map((message) => ({
     ...message,
-    added: message.added.toLocaleDateString("en-US", {
+    added: new Date(message.added).toLocaleString(undefined, {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -42,6 +42,7 @@ function formattedDate(messages) {
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
+      hour12: true,
     }),
   }));
 }
