@@ -6,13 +6,13 @@ A simple message board built with Express, EJS templates and Postgresql as part 
 
 Users can:
 
-- View all messages with the sender’s name, message text, and timestamp
-- Open individual message details
-- Navigate back to the main page
+- See all messages of every senders
+- View all messages of individual sender
+- Create new message with a username
+- Delete message
 
 ## Built with
 
 - Express
 - EJS
 - Postgresql
-- pg
