@@ -31,13 +31,30 @@ const validateUser = [
     .escape(),
 ];
 
+function formattedDate(messages) {
+  return messages.map((message) => ({
+    ...message,
+    added: message.added.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    }),
+  }));
+}
+
 app.get("/", async (req, res) => {
   try {
     const messages = await db.getMessages();
 
+    const formattedMessage = formattedDate(messages);
+
     res.render("index", {
       title: "Mini Message Board",
-      messages: messages,
+      messages: formattedMessage,
     });
   } catch (error) {
     console.log(error);
@@ -74,10 +91,12 @@ app.get("/message/:username", async (req, res) => {
   try {
     const messages = await db.getMessagesByUsername(username);
 
+    const formattedMessage = formattedDate(messages);
+
     res.render("userMessages", {
       username,
       title: `${username}'s messages`,
-      messages,
+      messages: formattedMessage,
     });
   } catch (error) {
     console.log(error);
